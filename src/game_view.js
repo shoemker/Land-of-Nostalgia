@@ -20,7 +20,7 @@ class GameView {
 	start(){
 
 		this.bindKeyHandlers();
-		setInterval(this.moveAndDraw, 20);
+		setInterval(this.moveAndDraw, 30);
 	}
 
 	moveAndDraw() {
@@ -30,18 +30,17 @@ class GameView {
 	}
 
 	bindKeyHandlers() {
+		const dist = 15;
 		const MOVES = {
-			w: [0, -30],
-			a: [-30, 0],
-			s: [0, 30],
-			d: [30, 0] }
+			w: [0, -dist],
+			a: [-dist, 0],
+			s: [0, dist],
+			d: [dist, 0] }
 
 			const that = this;
-		Object.keys(MOVES).forEach((ele) => {
 
-			// key(ele, () => { console.log(MOVES[ele]); })
+		Object.keys(MOVES).forEach((ele) => {
 			key(ele, () => { that.link.moveOnce(MOVES[ele]); })
-			// key(ele, function () { this.link.moveOnce(MOVES[ele]); });
 		});
 	}
 
