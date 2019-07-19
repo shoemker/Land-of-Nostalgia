@@ -10,9 +10,12 @@ class Link {
 		this.ctx = ctx;
 
 		this.imageArray = [];
+		this.attackImageArray = [];
 		this.loadImages();
 		this.dir = 3;
 		this.idx = 0;
+
+		this.history = [];
 
 	}
 
@@ -47,6 +50,11 @@ class Link {
 
 		this.switchImage();
 
+	}
+
+	attack() {
+		// this.history = [this.dir, this.idx];
+		console.log("space");
 	}
 
 	loadImages() {
@@ -92,9 +100,31 @@ class Link {
 		this.lru2.onload = () => { return true; }
 		this.lru2.src = '../images/link/lru2.png';
 
-		// west 'a'
+		// right 'd'
 		this.imageArray.push([this.lru1, this.lru2])
+		
 
+		////////////////////////////////////////
+		// load attack animations
+		this.lba = new Image();
+		this.lba.onload = () => { return true; }
+		this.lba.src = '../images/link/lba.png';
+		this.attackImageArray.push(this.lba);
+
+		this.lla = new Image();
+		this.lla.onload = () => { return true; }
+		this.lla.src = '../images/link/lla.png';
+		this.attackImageArray.push(this.lla);
+		
+		this.lfa = new Image();
+		this.lfa.onload = () => { return true; }
+		this.lfa.src = '../images/link/lfa.png';
+		this.attackImageArray.push(this.lfa);
+
+		this.lra = new Image();
+		this.lra.onload = () => { return true; }
+		this.lra.src = '../images/link/lra.png';
+		this.attackImageArray.push(this.lra);
 	}
 	
 }

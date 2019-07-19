@@ -42,6 +42,8 @@ class GameView {
 		Object.keys(MOVES).forEach((ele) => {
 			key(ele, () => { that.link.moveOnce(MOVES[ele]); })
 		});
+
+		key("space", () => { that.link.attack(); });
 	}
 
 }
