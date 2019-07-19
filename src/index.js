@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	g = new GameView(ctx);
 
-	g.start()
+	g.start(ctx)
 
 	// m = new MovingObject({ pos: [30, 30], 
 	// 											vel: [10, 10], 

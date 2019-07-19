@@ -28,13 +28,13 @@ class Game {
 		}
 	}
 
-	draw(ctx) {
+	draw(ctx, img) {
 
 		ctx.clearRect(0,0,this.dim_x, this.dim_y);
 	
 		// this.enemies[0].drawObject(ctx);
 		this.enemies.forEach(ele => { ele.drawObject(ctx); });
-		this.link.drawObject(ctx);
+		this.link.drawObject(ctx, img);
 	}
 
 	moveObjects() {
