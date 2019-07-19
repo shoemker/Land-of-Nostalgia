@@ -11,27 +11,22 @@ class GameView {
 		this.ctx = ctx;
 		this.game = new Game(1000, 750);
 		this.moveAndDraw = this.moveAndDraw.bind(this);
-		this.link = this.game.add(new Link());
+		this.link = this.game.add(new Link(this.ctx));
 
 
 		this.bindKeyHandlers = this.bindKeyHandlers.bind(this);
 	}
 
 	start(){
-		this.img = new Image();
-		this.img.onload = () => {
-			this.ctx.drawImage(this.img, 100, 100, 20, 20)
-		}
-		this.img.src = '../images/link/lfu1.png';
-
 
 		this.bindKeyHandlers();
 		setInterval(this.moveAndDraw, 20);
 	}
 
 	moveAndDraw() {
-		this.game.draw(this.ctx, this.img);
 		this.game.moveObjects();
+		this.game.draw(this.ctx, this.img);
+
 	}
 
 	bindKeyHandlers() {
