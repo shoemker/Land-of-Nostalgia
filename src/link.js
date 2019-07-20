@@ -2,27 +2,53 @@ const MovingObject = require("./moving_object");
 
 class Link {
 
-	constructor(ctx, img) {
-		this.pos = [100, 100];
+	constructor(ctx) {
+		this.pos = [0, 0];
 		this.height = 30;
 		this.width = 30;
-		this.vel = [0,0];
-		this.radius = 15;
-		this.color = "green";
+		
+		this.radius = this.width/2;
 		this.ctx = ctx;
 
 		this.imageArray = [];
-		this.attackImageArray = [];
 		this.loadImages();
-		
+
 		this.direction = 4;
 		this.idx = 0;
 
 		this.directionHistory = [];
-		this.posHistory = [0,0];
+		this.posHistory=[];
+		this.posHistory[0] = this.pos[0];
+		this.posHistory[1] = this.pos[1];
 		this.attackAnimationCount = 0;
 		this.maxCount = 10;
 
+	}
+
+	center() {
+		if (this.direction >= 8) {
+			return [this.posHistory[0] + 15, this.posHistory[1] + 15]; 
+		} else return [this.pos[0] + 15, this.pos[1] + 15];
+	}
+
+
+	swordTipPos(){
+		if (this.direction >= 8) {
+
+			let center = this.center();
+
+			if (this.direction === 8) {
+				return [center[0]-3, center[1]-this.radius-1.6*this.radius];
+			} else if (this.direction === 9) {
+				return [center[0] -this.radius - 1.6 * this.radius, center[1]+2];
+			} else if (this.direction === 10) {
+				return [center[0]+1, center[1] + this.radius + 1.6 * this.radius];
+			} else {
+				return [center[0] + this.radius + 1.6 * this.radius, center[1] + 2];
+			}
+
+		}
+		else return null;
 	}
 
 	// switches image for walking animation
@@ -33,7 +59,14 @@ class Link {
 	
 
 	drawObject(ctx) {
+		// this circle encircles Link
+		// ctx.beginPath();
+		// ctx.arc(this.pos[0]+15, this.pos[1]+15, 15, 0, 2 * Math.PI);
+		// ctx.stroke();
+		// ctx.fill();
 
+		// draws Link
+		// ctx.filter = "brightness(150%)";
 		ctx.drawImage(this.imageArray[this.direction + this.idx], 
 									this.pos[0], 
 									this.pos[1], 
@@ -44,15 +77,19 @@ class Link {
 		// and resets image at the end
 		if (this.direction >= 8) {
 			if (this.attackAnimationCount === this.maxCount) {
-				this.direction = this.directionHistory;
 
+				this.direction = this.directionHistory;
 				this.pos[0] = this.posHistory[0];
 				this.pos[1] = this.posHistory[1];
+
 				this.attackAnimationCount = 0
 				this.height = 30;
 				this.width = 30;
 			}
-			else this.attackAnimationCount++;
+			else {
+				this.attackAnimationCount++;
+
+			}
 		}
 	}
 
@@ -61,7 +98,6 @@ class Link {
 		if (this.attackAnimationCount === 0) {
 			this.moveOnce(deltaPos)
 		}
-
 	}
 
 	moveOnce(deltaPos) {
@@ -87,21 +123,24 @@ class Link {
 			this.posHistory[0] = this.pos[0];
 			this.posHistory[1] = this.pos[1];
 
+			// changes position and size to account for bigger attack image
 			if (this.direction === 0){
-				this.height = 2 *this.height;
-				this.pos[1] -= 30;
+				this.height = 1.8 * this.height;
+				this.pos[1] -= 24;
 			} else if (this.direction === 2) {
-				this.width = 2 * this.width;
-				this.pos[0] -= 30;
+				this.width = 1.8 * this.width;
+				this.pos[0] -= 24;
 			} else if (this.direction === 4) {
-				this.height = 2 * this.height;
+				this.height = 1.8 * this.height;
 			} else if (this.direction === 6) {
-				this.width = 2*this.width;
+				this.width = 1.8 * this.width;
 			}
 
 			this.direction = this.direction/2 + 8;
 			this.idx = 0; 
+			this.swordTipPos();
 		}
+
 	}
 
 	// loads all of the link images
@@ -119,16 +158,16 @@ class Link {
 	
 
 		// west 'a'
-		this.llu1 = new Image();
-		this.llu1.onload = () => { return true; }
-		this.llu1.src = '../images/link/llu1.png';
-		this.imageArray.push(this.llu1);
-
 		this.llu2 = new Image();
 		this.llu2.onload = () => { return true; }
 		this.llu2.src = '../images/link/llu2.png';
 		this.imageArray.push(this.llu2);		
 
+		this.llu1 = new Image();
+		this.llu1.onload = () => { return true; }
+		this.llu1.src = '../images/link/llu1.png';
+		this.imageArray.push(this.llu1);
+		
 
 		// south 's'
 		this.lfu1 = new Image();
@@ -142,7 +181,7 @@ class Link {
 		this.imageArray.push(this.lfu2);
 
 
-		// right 'd'
+		// east 'd'
 		this.lru1 = new Image();
 		this.lru1.onload = () => { return true; }
 		this.lru1.src = '../images/link/lru1.png';

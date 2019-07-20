@@ -24,13 +24,15 @@ class GameView {
 	}
 
 	moveAndDraw() {
-		this.game.moveObjects();
+		this.game.step();
 		this.game.draw(this.ctx, this.img);
 
 	}
 
 	bindKeyHandlers() {
+		
 		const dist = 15;
+
 		const MOVES = {
 			w: [0, -dist],
 			a: [-dist, 0],
