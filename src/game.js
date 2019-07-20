@@ -10,7 +10,7 @@ class Game {
 		this.dim_x = dim_x;
 		this.dim_y = dim_y;
 		this.link;
-		// this.countToFifty = 0;
+		this.countToThirty = 0;
 
 		this.add(new Enemy({pos: [50, 30],
 	 											vel: [1, 1],
@@ -30,20 +30,27 @@ class Game {
 		}
 	}
 
-	draw(ctx, img) {
+	draw(ctx) {
 
 		ctx.clearRect(0,0,this.dim_x, this.dim_y);
 		
 		this.enemies.forEach(ele => { ele.drawObject(ctx); });
-		this.link.drawObject(ctx, img);
+		
+		if (this.countToThirty > 0 && this.countToThirty%3 === 0) 
+			this.link.drawObject(ctx, true );
+		else this.link.drawObject(ctx, false);
 	}
 
 	step() {
-		// this.countToFifty++;
-	
+		// debugger
+		if (this.countToThirty === 30) this.countToThirty = 0;
+		else if (this.countToThirty > 0) this.countToThirty++;
+		else {
+			this.checkCollisions();
+			this.checkHit();
+		}
+
 		this.moveObjects();
-		this.checkCollisions();
-		this.checkHit();
 	}
 
 	checkCollisions() {
@@ -56,7 +63,7 @@ class Game {
 			const distance = Util.distance(linkCenter,enemy.pos);
 
 			if (distance < (rad + enemy.radius +2)) {
-				// countToFifty
+				this.countToThirty++;
 				console.log("collision");
 			}
 		})
@@ -69,6 +76,7 @@ class Game {
 				const distance = Util.distance(tip, enemy.pos);
 
 				if (distance < enemy.radius) {
+					this.countToThirty++;					
 					console.log("hit");
 				} 
 			})

@@ -58,15 +58,18 @@ class Link {
 	}
 	
 
-	drawObject(ctx) {
+	drawObject(ctx, brighten) {
 		// this circle encircles Link
 		// ctx.beginPath();
 		// ctx.arc(this.pos[0]+15, this.pos[1]+15, 15, 0, 2 * Math.PI);
 		// ctx.stroke();
 		// ctx.fill();
 
+
+		if (brighten) ctx.filter = "brightness(150%)";
+		else ctx.filter = "brightness(100%)";
+		
 		// draws Link
-		// ctx.filter = "brightness(150%)";
 		ctx.drawImage(this.imageArray[this.direction + this.idx], 
 									this.pos[0], 
 									this.pos[1], 

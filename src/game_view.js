@@ -25,7 +25,7 @@ class GameView {
 
 	moveAndDraw() {
 		this.game.step();
-		this.game.draw(this.ctx, this.img);
+		this.game.draw(this.ctx);
 
 	}
 

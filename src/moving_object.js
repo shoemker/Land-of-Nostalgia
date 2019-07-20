@@ -9,7 +9,11 @@ class MovingObject {
 		this.game = options.game;
 	}
 
-	drawObject(ctx) {
+	drawObject(ctx, brighten) {
+
+		// if (brighten) ctx.filter = "brightness(150%)";
+		// else ctx.filter = "brightness(100%)";
+
 		ctx.beginPath();
 		ctx.fillStyle = this.color;
 		//x, y, width, height
