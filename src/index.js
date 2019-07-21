@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const canvasEl = document.getElementsByTagName("canvas")[0];
 	canvasEl.width = 1000;
 
-	canvasEl.height =700;
+	canvasEl.height =750;
 
 	const ctx = canvasEl.getContext("2d");
 

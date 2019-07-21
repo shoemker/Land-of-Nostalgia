@@ -1,4 +1,4 @@
-const MovingObject = require("./moving_object");
+
 
 class Link {
 
@@ -66,9 +66,9 @@ class Link {
 		// ctx.fill();
 
 
-		if (brighten) ctx.filter = "brightness(150%)";
+		if (brighten) ctx.filter = "brightness(170%)";
 		else ctx.filter = "brightness(100%)";
-		
+
 		// draws Link
 		ctx.drawImage(this.imageArray[this.direction + this.idx], 
 									this.pos[0], 
