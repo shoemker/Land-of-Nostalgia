@@ -12,12 +12,28 @@ class Game {
 		this.link;
 		this.countToThirty = 0;
 		this.messageCount = 0;
-		this.message = "Use a,w,s,d to move and space to attack";
+		this.message = "Use a,w,s,d to move and space to attack, Kill all enemies! Only touch them with your sword.";
 
-		this.add(new Enemy({pos: [50, 30],
-	 											vel: [1, 1],
-	 											radius: 15, 
-												color: "blue"}))
+		this.add(new Enemy({
+			pos: [100, 100],
+			vel: [1, 1],
+			radius: 15, 
+			color: "blue"}))
+
+		this.add(new Enemy({
+			pos: [100, 400],
+			vel: [1, 1],
+			radius: 15,
+			color: "red"
+		}))
+		
+		this.add(new Enemy({
+			pos: [800, 600],
+			vel: [1, 1],
+			radius: 15,
+			color: "blue"
+		}))
+
 		this.loadImage();
 	}
 
@@ -48,9 +64,9 @@ class Game {
 
 
 	drawMessage(ctx){
-		if (this.messageCount === 80) this.messageCount = 0;
+		if (this.messageCount === 30) this.messageCount = 0;
 		else if (this.messageCount > 0 || 
-							this.message === "Use a,w,s,d to move and space to attack") {
+							this.message.startsWith("Use a,w,s,d")) {
 
 			ctx.font = "20px Comic Sans MS";
 			ctx.fillStyle = "black";
@@ -63,7 +79,7 @@ class Game {
 
 	step(timeDelta) {
 		// debugger
-		if (this.countToThirty === 30) {
+		if (this.countToThirty === 15) {
 			this.countToThirty = 0;
 			this.collision = false;
 		}
@@ -82,7 +98,7 @@ class Game {
 
 		const rad = this.link.radius;
 		this.collision = false;
-
+		// debugger
 		this.enemies.forEach(enemy => { 
 			const distance = Util.distance(linkCenter,enemy.pos);
 
@@ -98,13 +114,18 @@ class Game {
 	checkHit() {
 		const tip = this.link.swordTipPos();
 		if (tip !== null ) {
-			this.enemies.forEach(enemy => { 
+			this.enemies.forEach((enemy,i) => { 
 				const distance = Util.distance(tip, enemy.pos);
 
 				if (distance < enemy.radius) {
 					this.countToThirty++;		
 					this.message = "Hit!"	
-					this.messageCount=1;		
+					enemy.hitPoints--;
+					this.messageCount=1;
+					if (enemy.hitPoints <= 0)		{
+						this.enemies.splice(i,1)
+						this.message = "Enemy Killed";
+					}
 				} 
 			})
 	 	}
@@ -125,19 +146,14 @@ class Game {
 			//trail
 			ctx.drawImage(this.background, 64, 0, 64, 64, i * 64, 404, 64, 64);
 
-			//green
-			// for (let j = 1; j < 6; j++) {
-			// 	ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, j*64+20, 64, 64);
-			// }
-			// for (let j = 7; j < 10; j++) {
-			// 	ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, j * 64 + 20, 64, 64);
-			// }
+
 
 
 			// //bottom
- 			// ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, 660, 64, 64);
-		 	ctx.drawImage(this.background, 192, 0, 64, 64, i * 64, 660, 64, 64);
-	 		ctx.drawImage(this.background, 128, 0, 64, 64, i * 64, 724, 64, 64);
+			if (i !== 0 && i!=15) {
+		 		ctx.drawImage(this.background, 192, 0, 64, 64, i * 64, 660, 64, 64);
+			 	ctx.drawImage(this.background, 128, 0, 64, 64, i * 64, 724, 64, 64);
+			}
 		}
 
 		//clumps
@@ -147,7 +163,10 @@ class Game {
 		ctx.drawImage(this.background, 192, 0, 64, 64, 192, 148, 64, 64);
 		ctx.drawImage(this.background, 128, 0, 64, 64, 192, 212, 64, 64);
 
-
+		ctx.drawImage(this.background, 256, 0, 64, 64, 640, 468, 64, 64);
+		ctx.drawImage(this.background, 256, 0, 64, 64, 640, 532, 64, 64);
+		ctx.drawImage(this.background, 256, 0, 64, 64, 704, 468, 64, 64);
+    
 		for (let i = 0; i <6; i++) {
 			// left side
 	
@@ -169,7 +188,7 @@ class Game {
 	loadImage() {
 		this.background = new Image();
 		this.background.onload = () => { return true; }
-		this.background.src = '../images/tiles.png';
+		this.background.src = './images/tiles.png';
 	}
 }
 

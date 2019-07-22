@@ -8,7 +8,7 @@ class Link extends MovingObject {
 		this.pos = [900, 90];
 		this.height = 30;
 		this.width = 30;
-		
+		this.radius = 15
 		this.ctx = ctx;
 
 		this.imageArray = [];
@@ -154,48 +154,48 @@ class Link extends MovingObject {
 		// north 'w'
 		this.lbu1 = new Image();
 		this.lbu1.onload = () => { return true; }
-		this.lbu1.src = '../images/link/lbu1.png';
+		this.lbu1.src = './images/link/lbu1.png';
 		this.imageArray.push(this.lbu1);
 
 		this.lbu2 = new Image();
 		this.lbu2.onload = () => { return true; }
-		this.lbu2.src = '../images/link/lbu2.png';
+		this.lbu2.src = './images/link/lbu2.png';
 		this.imageArray.push(this.lbu2);
 	
 
 		// west 'a'
 		this.llu2 = new Image();
 		this.llu2.onload = () => { return true; }
-		this.llu2.src = '../images/link/llu2.png';
+		this.llu2.src = './images/link/llu2.png';
 		this.imageArray.push(this.llu2);		
 
 		this.llu1 = new Image();
 		this.llu1.onload = () => { return true; }
-		this.llu1.src = '../images/link/llu1.png';
+		this.llu1.src = './images/link/llu1.png';
 		this.imageArray.push(this.llu1);
 		
 
 		// south 's'
 		this.lfu1 = new Image();
 		this.lfu1.onload = () => { return true; }
-		this.lfu1.src = '../images/link/lfu1.png';
+		this.lfu1.src = './images/link/lfu1.png';
 		this.imageArray.push(this.lfu1);
 
 		this.lfu2 = new Image();
 		this.lfu2.onload = () => { return true; }
-		this.lfu2.src = '../images/link/lfu2.png';
+		this.lfu2.src = './images/link/lfu2.png';
 		this.imageArray.push(this.lfu2);
 
 
 		// east 'd'
 		this.lru1 = new Image();
 		this.lru1.onload = () => { return true; }
-		this.lru1.src = '../images/link/lru1.png';
+		this.lru1.src = './images/link/lru1.png';
 		this.imageArray.push(this.lru1);
 
 		this.lru2 = new Image();
 		this.lru2.onload = () => { return true; }
-		this.lru2.src = '../images/link/lru2.png';
+		this.lru2.src = './images/link/lru2.png';
 		this.imageArray.push(this.lru2);
 		
 
@@ -203,22 +203,22 @@ class Link extends MovingObject {
 		// load attack animations
 		this.lba = new Image();
 		this.lba.onload = () => { return true; }
-		this.lba.src = '../images/link/lba.png';
+		this.lba.src = './images/link/lba.png';
 		this.imageArray.push(this.lba);
 
 		this.lla = new Image();
 		this.lla.onload = () => { return true; }
-		this.lla.src = '../images/link/lla.png';
+		this.lla.src = './images/link/lla.png';
 		this.imageArray.push(this.lla);
 		
 		this.lfa = new Image();
 		this.lfa.onload = () => { return true; }
-		this.lfa.src = '../images/link/lfa.png';
+		this.lfa.src = './images/link/lfa.png';
 		this.imageArray.push(this.lfa);
 
 		this.lra = new Image();
 		this.lra.onload = () => { return true; }
-		this.lra.src = '../images/link/lra.png';
+		this.lra.src = './images/link/lra.png';
 		this.imageArray.push(this.lra);
 	}
 	

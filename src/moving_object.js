@@ -11,6 +11,7 @@ class MovingObject {
 	center() {
 		this.pos;
 	}
+
 	drawObject(ctx, brighten) {
 
 		// if (brighten) ctx.filter = "brightness(150%)";
@@ -18,7 +19,7 @@ class MovingObject {
 
 		ctx.beginPath();
 		ctx.fillStyle = this.color;
-		//x, y, width, height
+
 
 		ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2*Math.PI );
 		ctx.stroke();
@@ -31,6 +32,7 @@ class MovingObject {
 		this.pos[1] += this.vel[1];
 	}
 
+	//checks to see if the center is out of bounds
 	checkBounds(x,y) {
 		// debugger
 		if (y < 70 || y > 700) return false
