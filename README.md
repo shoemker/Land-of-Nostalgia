@@ -1,15 +1,3 @@
-# 🚀 Welcome to your new awesome project!
-
-This project has been created using **webpack scaffold**, you can now run
-
-```
-npm run build
-```
-
-or
-
-```
-yarn build
-```
-
-to bundle your application
+<img src="./images/link/lfu1.png">
+<a href="https://shoemker.github.io/Land-of-Nostalgia/"><h1>Land of Nostalgia</h1></a>
+<p>Land of Nostalgia is a tribute to classic 8-bit rpgs, specifically Legend of Zelda.</p>
