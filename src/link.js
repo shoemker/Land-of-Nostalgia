@@ -1,13 +1,14 @@
+const MovingObject = require("./moving_object");
 
 
-class Link {
+class Link extends MovingObject {
 
 	constructor(ctx) {
-		this.pos = [0, 0];
+		super([900,90],[1,1],15,"")
+		this.pos = [900, 90];
 		this.height = 30;
 		this.width = 30;
 		
-		this.radius = this.width/2;
 		this.ctx = ctx;
 
 		this.imageArray = [];
@@ -21,7 +22,7 @@ class Link {
 		this.posHistory[0] = this.pos[0];
 		this.posHistory[1] = this.pos[1];
 		this.attackAnimationCount = 0;
-		this.maxCount = 10;
+		this.maxCount = 7;
 
 	}
 

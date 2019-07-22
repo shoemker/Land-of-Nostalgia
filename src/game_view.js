@@ -7,27 +7,44 @@ const Link = require("./link");
 class GameView {
 
 
-	constructor(ctx){
+	constructor(ctx, width, height){
 		this.ctx = ctx;
-		this.game = new Game(1000, 750);
-		this.moveAndDraw = this.moveAndDraw.bind(this);
+		this.game = new Game(width, height);
 		this.link = this.game.add(new Link(this.ctx));
 
 
 		this.bindKeyHandlers = this.bindKeyHandlers.bind(this);
 	}
 
-	start(){
+	// start(){
 
+	// 	this.bindKeyHandlers();
+	// 	setInterval(this.moveAndDraw, 30);
+	// }
+
+	start() {
 		this.bindKeyHandlers();
-		setInterval(this.moveAndDraw, 30);
-	}
+		this.lastTime = 0;
+		// start the animation
+		requestAnimationFrame(this.animate.bind(this));
+	};
 
-	moveAndDraw() {
-		this.game.step();
+	animate(time) {
+		const timeDelta = time - this.lastTime;
+
+		this.game.step(timeDelta);
 		this.game.draw(this.ctx);
+		this.lastTime = time;
 
-	}
+		// every call to animate requests causes another call to animate
+		requestAnimationFrame(this.animate.bind(this));
+	};
+
+	// moveAndDraw() {
+	// 	this.game.step();
+	// 	this.game.draw(this.ctx);
+
+	// }
 
 	bindKeyHandlers() {
 		

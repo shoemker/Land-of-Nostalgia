@@ -6,13 +6,13 @@ window.MovingObject = MovingObject;
 
 document.addEventListener("DOMContentLoaded", function () {
 	const canvasEl = document.getElementsByTagName("canvas")[0];
-	canvasEl.width = 1000;
+	canvasEl.width = 1050;
 
 	canvasEl.height =750;
 
 	const ctx = canvasEl.getContext("2d");
 
-	g = new GameView(ctx);
+	g = new GameView(ctx,canvasEl.width, canvasEl.height);
 
 	g.start(ctx)
 

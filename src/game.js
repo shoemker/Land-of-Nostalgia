@@ -37,7 +37,7 @@ class Game {
 		ctx.clearRect(0,0,this.dim_x, this.dim_y);
 		
 		this.drawMessage(ctx);
-		this.drawBackground(ctx);
+		this.drawBackgroundMap1(ctx);
 
 		this.enemies.forEach(ele => { ele.drawObject(ctx); });
 		
@@ -61,7 +61,7 @@ class Game {
 	}
 
 
-	step() {
+	step(timeDelta) {
 		// debugger
 		if (this.countToThirty === 30) {
 			this.countToThirty = 0;
@@ -73,7 +73,7 @@ class Game {
 			this.checkHit();
 		}
 
-		this.moveObjects();
+		this.moveObjects(timeDelta);
 	}
 
 	checkCollisions() {
@@ -110,16 +110,57 @@ class Game {
 	 	}
 	}
 
-	moveObjects() {
-		this.enemies.forEach(enemy => { enemy.move(); });
+	moveObjects(timeDelta) {
+		this.enemies.forEach(enemy => { enemy.move(timeDelta); });
 	}
 
-	drawBackground(ctx) {
-		for (let i = 0; i < 16; i++) ctx.drawImage(this.background, 128, 0, 64, 64, i*64, 20, 64, 64);
-		for (let i = 0; i < 16; i++) ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, 660, 64, 64);
+	drawBackgroundMap1(ctx) {
 
-		for (let i = 0; i < 16; i++) ctx.drawImage(this.background, 192, 0, 64, 64, i * 64, 660, 64, 64);
-		for (let i = 0; i < 16; i++) ctx.drawImage(this.background, 128, 0, 64, 64, i * 64, 724, 64, 64);
+		for (let i = 0; i < 16; i++) { 
+			//top
+			ctx.drawImage(this.background, 128, 0, 64, 64, i*64, 20, 64, 64);
+			
+			//trail
+			ctx.drawImage(this.background, 64, 0, 64, 64, i * 64, 404, 64, 64);
+
+			//green
+			for (let j = 1; j < 6; j++) {
+				ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, j*64+20, 64, 64);
+			}
+			for (let j = 7; j < 10; j++) {
+				ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, j * 64 + 20, 64, 64);
+			}
+
+
+			//bottom
+ 			ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, 660, 64, 64);
+		 	ctx.drawImage(this.background, 192, 0, 64, 64, i * 64, 660, 64, 64);
+	 		ctx.drawImage(this.background, 128, 0, 64, 64, i * 64, 724, 64, 64);
+		}
+
+		//clumps
+		ctx.drawImage(this.background, 192, 0, 64, 64, 128, 148, 64, 64);
+		ctx.drawImage(this.background, 128, 0, 64, 64, 128, 212, 64, 64);
+
+		ctx.drawImage(this.background, 192, 0, 64, 64, 192, 148, 64, 64);
+		ctx.drawImage(this.background, 128, 0, 64, 64, 192, 212, 64, 64);
+
+
+		for (let i = 0; i <6; i++) {
+			// left side
+			ctx.drawImage(this.background, 0, 0, 64, 64, 0, 84 + i * 2 * 64, 64, 64);
+			if (i!==2)ctx.drawImage(this.background, 192, 0, 64, 64, 0, 84 + i * 2 * 64, 64, 64);
+			if (i!==3)ctx.drawImage(this.background, 128, 0, 64, 64, 0, 20 + i * 2 * 64, 64, 64);
+			
+
+			//right side
+			ctx.drawImage(this.background, 0, 0, 64, 64, 960, 84+i*2*64, 64, 64);
+			ctx.drawImage(this.background, 192, 0, 64, 64, 960, 84 + i * 2 * 64, 64, 64);
+			ctx.drawImage(this.background, 128, 0, 64, 64, 960, 20 + i * 2 * 64, 64, 64);
+	
+
+		}
+
 	}
 
 
