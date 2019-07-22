@@ -22,7 +22,7 @@ class Link extends MovingObject {
 		this.posHistory[0] = this.pos[0];
 		this.posHistory[1] = this.pos[1];
 		this.attackAnimationCount = 0;
-		this.maxCount = 7;
+		this.maxCount = 4;
 
 	}
 

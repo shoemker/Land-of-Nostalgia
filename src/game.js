@@ -115,6 +115,8 @@ class Game {
 	}
 
 	drawBackgroundMap1(ctx) {
+		ctx.fillStyle = "#8DC435";
+		ctx.fillRect(0, 20, this.dim_x, this.dim_y);
 
 		for (let i = 0; i < 16; i++) { 
 			//top
@@ -124,16 +126,16 @@ class Game {
 			ctx.drawImage(this.background, 64, 0, 64, 64, i * 64, 404, 64, 64);
 
 			//green
-			for (let j = 1; j < 6; j++) {
-				ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, j*64+20, 64, 64);
-			}
-			for (let j = 7; j < 10; j++) {
-				ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, j * 64 + 20, 64, 64);
-			}
+			// for (let j = 1; j < 6; j++) {
+			// 	ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, j*64+20, 64, 64);
+			// }
+			// for (let j = 7; j < 10; j++) {
+			// 	ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, j * 64 + 20, 64, 64);
+			// }
 
 
-			//bottom
- 			ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, 660, 64, 64);
+			// //bottom
+ 			// ctx.drawImage(this.background, 0, 0, 64, 64, i * 64, 660, 64, 64);
 		 	ctx.drawImage(this.background, 192, 0, 64, 64, i * 64, 660, 64, 64);
 	 		ctx.drawImage(this.background, 128, 0, 64, 64, i * 64, 724, 64, 64);
 		}

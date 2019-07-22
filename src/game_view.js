@@ -10,6 +10,7 @@ class GameView {
 	constructor(ctx, width, height){
 		this.ctx = ctx;
 		this.game = new Game(width, height);
+
 		this.link = this.game.add(new Link(this.ctx));
 
 
@@ -41,8 +42,8 @@ class GameView {
 	};
 
 	// moveAndDraw() {
-	// 	this.game.step();
-	// 	this.game.draw(this.ctx);
+	// 	this.g.game.step(1);
+	// 	this.g.game.draw(this.g.ctx);
 
 	// }
 
