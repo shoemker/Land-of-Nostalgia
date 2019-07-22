@@ -105,20 +105,22 @@ class Link extends MovingObject {
 	}
 
 	moveOnce(deltaPos) {
-		
-		this.direction = 0;
-		this.pos[0] += deltaPos[0];
-		this.pos[1] += deltaPos[1];
+	
+		if (this.checkBounds(this.center()[0] + deltaPos[0], this.center()[1] + deltaPos[1])) {
 
-		// sets direction for drawing image
-		if (deltaPos[0] === 0 && deltaPos[1] < 0) this.direction = 0;
-		else if (deltaPos[0] < 0 && deltaPos[1] === 0) this.direction = 2;
-		else if (deltaPos[0] === 0 && deltaPos[1] > 0) this.direction = 4;
-		else this.direction = 6;
+			this.direction = 0;
+			this.pos[0] += deltaPos[0];
+			this.pos[1] += deltaPos[1];
 
-		this.switchImage();
+			// sets direction for drawing image
+			if (deltaPos[0] === 0 && deltaPos[1] < 0) this.direction = 0;
+			else if (deltaPos[0] < 0 && deltaPos[1] === 0) this.direction = 2;
+			else if (deltaPos[0] === 0 && deltaPos[1] > 0) this.direction = 4;
+			else this.direction = 6;
 
-	}	
+			this.switchImage();	
+		}
+	}		
 
 	// temporarily sets image to attack image
 	attack() {

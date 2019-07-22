@@ -8,6 +8,9 @@ class MovingObject {
 		this.color = options.color;
 	}
 
+	center() {
+		this.pos;
+	}
 	drawObject(ctx, brighten) {
 
 		// if (brighten) ctx.filter = "brightness(150%)";
@@ -28,6 +31,14 @@ class MovingObject {
 		this.pos[1] += this.vel[1];
 	}
 
+	checkBounds(x,y) {
+		// debugger
+		if (y < 70 || y > 700) return false
+		else if (x > 960) return false;
+		else if (x<70 && !(y>404 && y<468)) return false
+
+		return true;
+	}
 }
 
 module.exports = MovingObject;

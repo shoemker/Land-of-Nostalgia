@@ -150,13 +150,13 @@ class Game {
 
 		for (let i = 0; i <6; i++) {
 			// left side
-			ctx.drawImage(this.background, 0, 0, 64, 64, 0, 84 + i * 2 * 64, 64, 64);
+	
 			if (i!==2)ctx.drawImage(this.background, 192, 0, 64, 64, 0, 84 + i * 2 * 64, 64, 64);
 			if (i!==3)ctx.drawImage(this.background, 128, 0, 64, 64, 0, 20 + i * 2 * 64, 64, 64);
 			
 
 			//right side
-			ctx.drawImage(this.background, 0, 0, 64, 64, 960, 84+i*2*64, 64, 64);
+			
 			ctx.drawImage(this.background, 192, 0, 64, 64, 960, 84 + i * 2 * 64, 64, 64);
 			ctx.drawImage(this.background, 128, 0, 64, 64, 960, 20 + i * 2 * 64, 64, 64);
 	
