@@ -48,7 +48,7 @@ class Game {
 		}
 	}
 
-	draw(ctx) {
+	draw(ctx, map) {
 
 		ctx.clearRect(0,0,this.dim_x, this.dim_y);
 		
