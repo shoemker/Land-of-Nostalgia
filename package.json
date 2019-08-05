@@ -3,7 +3,7 @@
   "description": "My webpack project",
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack --watch --mode=development"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

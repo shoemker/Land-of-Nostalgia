@@ -5,11 +5,12 @@ const Link = require("./link");
 
 class Game {
 
-	constructor(dim_x, dim_y){
+	constructor(dim_x, dim_y, map){
 		this.enemies = [];
 		this.dim_x = dim_x;
 		this.dim_y = dim_y;
 		this.link;
+		this.map = map;
 		this.countToThirty = 0;
 		this.messageCount = 0;
 		this.message = "Use a,w,s,d to move and space to attack, Kill all enemies! Only touch them with your sword.";
@@ -18,23 +19,29 @@ class Game {
 			pos: [100, 100],
 			vel: [1, 1],
 			radius: 15, 
-			color: "blue"}))
+			color: "blue",
+			map: this.map
+		}))
 
 		this.add(new Enemy({
 			pos: [100, 400],
 			vel: [1, 1],
 			radius: 15,
-			color: "red"
+			color: "red",
+			map: this.map
 		}))
 		
 		this.add(new Enemy({
-			pos: [800, 600],
+			pos: [650, 600],
 			vel: [1, 1],
 			radius: 15,
-			color: "blue"
+			color: "blue",
+			map: this.map
 		}))
 
 		this.loadImage();
+
+		
 	}
 
 	add(object) {
@@ -48,12 +55,13 @@ class Game {
 		}
 	}
 
-	draw(ctx, map) {
+	draw(ctx) {
 
 		ctx.clearRect(0,0,this.dim_x, this.dim_y);
 		
 		this.drawMessage(ctx);
-		this.drawBackgroundMap1(ctx);
+
+		this.drawBackgroundMap (ctx);
 
 		this.enemies.forEach(ele => { ele.drawObject(ctx); });
 		
@@ -135,54 +143,56 @@ class Game {
 		this.enemies.forEach(enemy => { enemy.move(timeDelta); });
 	}
 
-	drawBackgroundMap1(ctx) {
-		ctx.fillStyle = "#8DC435";
-		ctx.fillRect(0, 20, this.dim_x, this.dim_y);
+	drawBackgroundMap(ctx, map = 1) {
 
-		for (let i = 0; i < 16; i++) { 
-			//top
-			ctx.drawImage(this.background, 128, 0, 64, 64, i*64, 20, 64, 64);
+			if (map === 1) {
+				ctx.fillStyle = "#8DC435";
+				ctx.fillRect(0, 20, this.dim_x, this.dim_y);
+
+				for (let i = 0; i < 11; i++) { 
+					//top
+					ctx.drawImage(this.background, 128, 0, 64, 64, i*64, 20, 64, 64);
+					
+					//trail
+					ctx.drawImage(this.background, 64, 0, 64, 64, i * 64, 404, 64, 64);
+
+
+
+
+					// //bottom
+					if (i !== 0 && i!=15) {
+						ctx.drawImage(this.background, 192, 0, 64, 64, i * 64, 660, 64, 64);
+						ctx.drawImage(this.background, 128, 0, 64, 64, i * 64, 724, 64, 64);
+					}
+				}
+
+				//clumps
+				ctx.drawImage(this.background, 192, 0, 64, 64, 128, 148, 64, 64);
+				ctx.drawImage(this.background, 128, 0, 64, 64, 128, 212, 64, 64);
+
+				ctx.drawImage(this.background, 192, 0, 64, 64, 192, 148, 64, 64);
+				ctx.drawImage(this.background, 128, 0, 64, 64, 192, 212, 64, 64);
+
+				ctx.drawImage(this.background, 256, 0, 64, 64, 440, 468, 64, 64);
+				ctx.drawImage(this.background, 256, 0, 64, 64, 440, 532, 64, 64);
+				ctx.drawImage(this.background, 256, 0, 64, 64, 504, 468, 64, 64);
+				
+				for (let i = 0; i <6; i++) {
+					// left side
 			
-			//trail
-			ctx.drawImage(this.background, 64, 0, 64, 64, i * 64, 404, 64, 64);
+					if (i!==2)ctx.drawImage(this.background, 192, 0, 64, 64, 0, 84 + i * 2 * 64, 64, 64);
+					if (i!==3)ctx.drawImage(this.background, 128, 0, 64, 64, 0, 20 + i * 2 * 64, 64, 64);
+					
 
+					//right side
+					
+					ctx.drawImage(this.background, 192, 0, 64, 64, 700, 84 + i * 2 * 64, 64, 64);
+					ctx.drawImage(this.background, 128, 0, 64, 64, 700, 20 + i * 2 * 64, 64, 64);
+			
 
-
-
-			// //bottom
-			if (i !== 0 && i!=15) {
-		 		ctx.drawImage(this.background, 192, 0, 64, 64, i * 64, 660, 64, 64);
-			 	ctx.drawImage(this.background, 128, 0, 64, 64, i * 64, 724, 64, 64);
+				}
 			}
 		}
-
-		//clumps
-		ctx.drawImage(this.background, 192, 0, 64, 64, 128, 148, 64, 64);
-		ctx.drawImage(this.background, 128, 0, 64, 64, 128, 212, 64, 64);
-
-		ctx.drawImage(this.background, 192, 0, 64, 64, 192, 148, 64, 64);
-		ctx.drawImage(this.background, 128, 0, 64, 64, 192, 212, 64, 64);
-
-		ctx.drawImage(this.background, 256, 0, 64, 64, 640, 468, 64, 64);
-		ctx.drawImage(this.background, 256, 0, 64, 64, 640, 532, 64, 64);
-		ctx.drawImage(this.background, 256, 0, 64, 64, 704, 468, 64, 64);
-    
-		for (let i = 0; i <6; i++) {
-			// left side
-	
-			if (i!==2)ctx.drawImage(this.background, 192, 0, 64, 64, 0, 84 + i * 2 * 64, 64, 64);
-			if (i!==3)ctx.drawImage(this.background, 128, 0, 64, 64, 0, 20 + i * 2 * 64, 64, 64);
-			
-
-			//right side
-			
-			ctx.drawImage(this.background, 192, 0, 64, 64, 960, 84 + i * 2 * 64, 64, 64);
-			ctx.drawImage(this.background, 128, 0, 64, 64, 960, 20 + i * 2 * 64, 64, 64);
-	
-
-		}
-
-	}
 
 
 	loadImage() {
@@ -190,6 +200,7 @@ class Game {
 		this.background.onload = () => { return true; }
 		this.background.src = './images/tiles.png';
 	}
+	
 }
 
 

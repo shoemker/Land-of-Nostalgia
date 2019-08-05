@@ -9,7 +9,7 @@ class GameView {
 
 	constructor(ctx, width, height){
 		this.ctx = ctx;
-		this.game = new Game(width, height);
+		this.game = new Game(width, height, 1);
 
 		this.link = this.game.add(new Link(this.ctx));
 

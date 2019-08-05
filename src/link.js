@@ -4,8 +4,8 @@ const MovingObject = require("./moving_object");
 class Link extends MovingObject {
 
 	constructor(ctx) {
-		super([900,90],[1,1],15,"")
-		this.pos = [900, 90];
+		super([600,90],[1,1],15,"")
+		this.pos = [600, 90];
 		this.height = 30;
 		this.width = 30;
 		this.radius = 15
