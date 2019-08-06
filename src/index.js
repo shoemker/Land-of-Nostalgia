@@ -1,8 +1,5 @@
-const MovingObject = require("./moving_object.js");
-const Game = require("./game");
 const GameView = require("./game_view");
 
-window.MovingObject = MovingObject;
 
 document.addEventListener("DOMContentLoaded", function () {
 	const canvasEl = document.getElementsByTagName("canvas")[0];

@@ -13,7 +13,7 @@ class GameView {
 
 		this.link = this.game.add(new Link(this.ctx));
 
-		// this.bindKeyHandlers = this.bindKeyHandlers.bind(this);
+		// this.bindKeyH  andlers = this.bindKeyHandlers.bind(this);
 	}
 
 	// start(){
