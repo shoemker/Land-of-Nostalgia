@@ -1,5 +1,6 @@
 const Util = require("./utils");
 const Enemy = require("./enemy");
+const Snake = require("./snake");
 const Link = require("./link");
 
 
@@ -23,7 +24,7 @@ class Game {
 			map: this.map
 		}))
 
-		this.add(new Enemy({
+		this.add(new Snake({
 			pos: [100, 400],
 			vel: [1, 1],
 			radius: 15,
@@ -156,7 +157,7 @@ class Game {
 					//trail
 					ctx.drawImage(this.background, 64, 0, 64, 64, i * 64, 404, 64, 64);
 
-
+					// drawImage(this.image, xOnSheet,yOnSheet,width, height,xcoord, ycoord, width, height)
 
 
 					// //bottom
