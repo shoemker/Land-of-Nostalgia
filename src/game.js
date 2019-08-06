@@ -16,7 +16,7 @@ class Game {
 		this.messageCount = 0;
 		this.message = "Use a,w,s,d to move and space to attack, Kill all enemies! Only touch them with your sword.";
 
-		this.add(new Enemy({
+		this.add(new Snake({
 			pos: [100, 100],
 			vel: [1, 1],
 			radius: 15, 
@@ -26,13 +26,14 @@ class Game {
 
 		this.add(new Snake({
 			pos: [100, 400],
+
 			vel: [1, 1],
 			radius: 15,
 			color: "red",
 			map: this.map
 		}))
 		
-		this.add(new Enemy({
+		this.add(new Snake({
 			pos: [650, 600],
 			vel: [1, 1],
 			radius: 15,
@@ -103,15 +104,12 @@ class Game {
 
 	checkCollisions() {
 
-		const linkCenter = this.link.center();
-
-		const rad = this.link.radius;
 		this.collision = false;
 		// debugger
 		this.enemies.forEach(enemy => { 
-			const distance = Util.distance(linkCenter,enemy.pos);
+			const distance = Util.distance(this.link.center(),enemy.center());
 
-			if (distance < (rad + enemy.radius +2)) {
+			if (distance < (this.link.radius + enemy.radius +2)) {
 				this.countToThirty++;
 				this.collision = true;
 				this.message = "Ouch!";

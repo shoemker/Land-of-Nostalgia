@@ -10,7 +10,7 @@ class Enemy extends MovingObject{
 		this.deltaX = 0;
 		this.deltaY = 0;
 		this.hitPoints = 2;
-		// this.direction
+
 	}
 
 
@@ -28,6 +28,10 @@ class Enemy extends MovingObject{
 			this.pos[0] = newX;
 			this.pos[1] = newY;
 		} else this.directionCount = 10;
+	}
+
+	center() {
+		return [this.pos[0] + 15, this.pos[1] + 15];
 	}
 }
 

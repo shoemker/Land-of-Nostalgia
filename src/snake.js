@@ -17,14 +17,12 @@ class Snake extends Enemy {
 
 	drawObject(ctx, brighten) {
 
-
-
 		// if (brighten) ctx.filter = "brightness(170%)";
 		// else ctx.filter = "brightness(100%)";
 
 		let x;
 		let y;
-		if (this.deltaX > 0) {
+		if (this.deltaX >= 0) {
 			x = 30;
 			y = 330;
 		} else {
@@ -37,8 +35,11 @@ class Snake extends Enemy {
 			this.pos[1],
 			this.width,
 			this.height);
+	}
 
-		
+	center() {
+
+		return [this.pos[0] + 15, this.pos[1] + 15];
 	}
 
 	loadImages() {
@@ -50,6 +51,10 @@ class Snake extends Enemy {
 
 		// this.imageArray.push(this.snake1);
 	}
+
+
+
+	// move() {}
 }
 
 
