@@ -24,6 +24,7 @@ class Link extends MovingObject {
 		this.attackAnimationCount = 0;
 		this.maxCount = 4;
 		this.hitpoints = 6;
+		this.rupees = 0;
  
 	}
 

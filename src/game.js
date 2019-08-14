@@ -1,6 +1,7 @@
 const Util = require("./utils");
 const Enemy = require("./enemy");
 const Snake = require("./snake");
+const Rupee = require("./rupee");
 const Link = require("./link");
 const Background1 = require("./background1")
 
@@ -8,6 +9,7 @@ class Game {
 
 	constructor(dim_x, dim_y, map){
 		this.enemies = [];
+		this.rupees = [];
 		this.dim_x = dim_x;
 		this.dim_y = dim_y;
 		this.link;
@@ -18,12 +20,15 @@ class Game {
 
 		this.opening = true;
 
+		let snakeImg = this.loadSnake();
+
+		this.rupeeImg = this.loadRupee();
+
 		this.add(new Snake({
 			pos: [100, 100],
 			vel: [1, 1],
 			radius: 15, 
-			color: "blue",
-			map: this.map
+			img: snakeImg
 		}))
 
 		this.add(new Snake({
@@ -31,17 +36,17 @@ class Game {
 
 			vel: [1, 1],
 			radius: 15,
-			color: "red",
-			map: this.map
+			img: snakeImg
 		}))
 		
 		this.add(new Snake({
 			pos: [650, 600],
 			vel: [1, 1],
 			radius: 15,
-			color: "blue",
-			map: this.map
+			img: snakeImg
 		}))
+
+		// this.add(new Rupee([200,200], this.rupeeImg))
 
 		this.loadBackground1();
 
@@ -53,20 +58,25 @@ class Game {
 			this.enemies.push(object);
 			return this.enemies;
 		}
-		if (object instanceof Link){
+		else if (object instanceof Link){
 			this.link = object;
 			return this.link;
 		}
-	}
-	drawOpening(ctx) {
+		else if (object instanceof Rupee){
+			this.rupees.push(object);
+			return this.rupees;
+		}
 
+	}
+	
+	drawOpening(ctx) {
 			
-			ctx.fillStyle = "white";
-			ctx.textAlign = "center";
-			ctx.font = "35px PressStart2P";
-			
-			ctx.fillText("Welcome to Land of Nostalgia!", this.dim_x / 2, 200);
-			ctx.fillText("Click to Start", this.dim_x / 2, 250);
+		ctx.fillStyle = "white";
+		ctx.textAlign = "center";
+		ctx.font = "35px HalfBoldPixel";
+		
+		ctx.fillText("Welcome to Land of Nostalgia!", this.dim_x / 2, 200);
+		ctx.fillText("Click to Start", this.dim_x / 2, 250);
 	}
 
 	draw(ctx) {
@@ -76,11 +86,14 @@ class Game {
 		this.drawMessage(ctx);
 
 		this.drawBackgroundMap(ctx);
+
+		this.drawRupeesCount(ctx);
 		
 		this.drawHitpointsBar(ctx);
 
 		this.enemies.forEach(ele => { ele.drawObject(ctx); });
-		
+		this.rupees.forEach(ele => { ele.drawObject(ctx); });
+
 		if (this.countToThirty > 0 && this.countToThirty%2 === 0 && this.collision) 
 			this.link.drawObject(ctx, true );
 		else this.link.drawObject(ctx, false);
@@ -94,7 +107,7 @@ class Game {
 		else if (this.messageCount > 0 || 
 							this.message.startsWith("Use a,w,s,d")) {
 
-			ctx.font = "20px PressStart2P";
+			ctx.font = "20px HalfBoldPixel";
 			
 			ctx.fillStyle = "black";
 			ctx.fillText(this.message, this.dim_x / 2, 18);
@@ -106,6 +119,14 @@ class Game {
 		if (map === 1) {
 			let b = new Background1(ctx, this.background1, this.dim_x, this.dim_y);
 		}
+	}
+
+	drawRupeesCount(ctx) {
+		ctx.fillStyle = "white";
+		ctx.textAlign = "center";
+		ctx.font = "20px HalfBoldPixel";
+		ctx.fillText("Rupees", 50,50);
+		ctx.fillText(this.link.rupees, 50, 70);
 	}
 
 	drawHitpointsBar(ctx) {
@@ -120,7 +141,7 @@ class Game {
 		ctx.fillRect(725,45+offset,10,55-offset);
 		ctx.fillStyle = "white";
 		ctx.textAlign = "center";
-		ctx.font = "15px PressStart2P";
+		ctx.font = "15px HalfBoldPixel";
 		ctx.fillText("HP", 731, 120);
 	}
 
@@ -146,7 +167,7 @@ class Game {
 		this.collision = false;
 		// debugger
 		this.enemies.forEach(enemy => { 
-			const distance = Util.distance(this.link.center(),enemy.center());
+			let distance = Util.distance(this.link.center(),enemy.center());
 
 			if (distance < (this.link.radius + enemy.radius +2)) {
 				this.countToThirty++;
@@ -157,6 +178,16 @@ class Game {
 				this.messageCount=1;
 			}
 		})
+
+		this.rupees.forEach((rupee,i) => { 
+			let distance = Util.distance(this.link.center(),rupee.center());
+			if (distance < 30 ) {
+				this.message = "You found a rupee!"
+				this.rupees.splice(i, 1)
+				this.link.rupees++;
+				this.messageCount = 1;
+			}
+		});
 	}
 
 	checkHit() {
@@ -173,6 +204,8 @@ class Game {
 					if (enemy.hitPoints <= 0)		{
 						this.enemies.splice(i,1)
 						this.message = "Enemy Killed";
+						this.add(new Rupee(enemy.pos, this.rupeeImg));
+
 					}
 				} 
 			})
@@ -188,6 +221,21 @@ class Game {
 		this.background1 = new Image();
 		this.background1.onload = () => { return true; }
 		this.background1.src = './images/tiles.png';
+	}
+
+	loadSnake() {
+		// drawImage(this.image, xOnSheet,yOnSheet,width, height,xcoord, ycoord, width, height)
+		let snake1 = new Image();
+		snake1.onload = () => { return true; }
+		snake1.src = './images/enemies.png';
+		return snake1;
+	}
+
+	loadRupee() {
+		let rup = new Image();
+		rup.onload = () => { return true; }
+		rup.src = './images/BotW_Green_Rupee_Icon.png';
+		return rup;
 	}
 	
 }

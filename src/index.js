@@ -22,6 +22,4 @@ window.addEventListener('keydown', function (e) {
 		e.preventDefault();
 	}
 });
-	// document.addEventListener("onkeydown", function (event) {
-	// 		event.preventDefault()
-	// 	});
+
