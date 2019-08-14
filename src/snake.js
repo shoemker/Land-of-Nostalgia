@@ -8,7 +8,7 @@ class Snake extends Enemy {
 		this.directionDuration = 10;
 		this.directionCount = 0;
 
-		this.hitPoints = 2;
+		this.hitPoints = 1;
 		this.height = 30;
 		this.width = 30;
 		this.loadImages();

@@ -98,8 +98,8 @@ class Link extends MovingObject {
 	}
 
 
-	move(deltaPos) {
-		if (this.attackAnimationCount === 0) {
+	move(deltaPos, opening) {
+		if (this.attackAnimationCount === 0 && !opening) {
 			this.moveOnce(deltaPos)
 		}
 	}

@@ -14,9 +14,9 @@ class Game {
 		this.map = map;
 		this.countToThirty = 0;
 		this.messageCount = 0;
-		this.message = "Use a,w,s,d to move and space to attack, Kill all enemies! Only touch them with your sword.";
+		this.message = "Use a,w,s,d to move and space to attack, Kill all enemies!";
 
-		this.openingMessage = true;
+		this.opening = true;
 
 		this.add(new Snake({
 			pos: [100, 100],
@@ -58,9 +58,19 @@ class Game {
 			return this.link;
 		}
 	}
+	drawOpening(ctx) {
+
+			
+			ctx.fillStyle = "white";
+			ctx.textAlign = "center";
+			ctx.font = "35px PressStart2P";
+			
+			ctx.fillText("Welcome to Land of Nostalgia!", this.dim_x / 2, 200);
+			ctx.fillText("Click to Start", this.dim_x / 2, 250);
+	}
 
 	draw(ctx) {
-
+		
 		ctx.clearRect(0,0,this.dim_x, this.dim_y);
 		
 		this.drawMessage(ctx);
@@ -75,11 +85,7 @@ class Game {
 			this.link.drawObject(ctx, true );
 		else this.link.drawObject(ctx, false);
 
-		if (this.openingMessage) {
-			ctx.fillStyle = "white";
-			ctx.textAlign = "center";
-			ctx.fillText("Welcome to Land of Nostalgia", this.dim_x / 2, 200);
-		}
+		if (this.opening) this.drawOpening(ctx);
 	}
 
 
@@ -88,9 +94,9 @@ class Game {
 		else if (this.messageCount > 0 || 
 							this.message.startsWith("Use a,w,s,d")) {
 
-			ctx.font = "14px PressStart2P";
+			ctx.font = "20px PressStart2P";
+			
 			ctx.fillStyle = "black";
-			ctx.textAlign = "center";
 			ctx.fillText(this.message, this.dim_x / 2, 18);
 			this.messageCount++;
 		}
@@ -114,8 +120,10 @@ class Game {
 		ctx.fillRect(725,45+offset,10,55-offset);
 		ctx.fillStyle = "white";
 		ctx.textAlign = "center";
-		ctx.fillText("HP", 730, 130);
+		ctx.font = "15px PressStart2P";
+		ctx.fillText("HP", 731, 120);
 	}
+
 
 
 	step(timeDelta) {
@@ -155,7 +163,7 @@ class Game {
 		const tip = this.link.swordTipPos();
 		if (tip !== null ) {
 			this.enemies.forEach((enemy,i) => { 
-				const distance = Util.distance(tip, enemy.pos);
+				const distance = Util.distance(tip, enemy.center());
 
 				if (distance < enemy.radius) {
 					this.countToThirty++;		

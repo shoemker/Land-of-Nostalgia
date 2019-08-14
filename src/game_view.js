@@ -1,5 +1,4 @@
 const Game = require("./game");
-const Enemy = require("./enemy");
 const Link = require("./link");
 
 
@@ -8,6 +7,7 @@ class GameView {
 
 
 	constructor(ctx, width, height){
+		this.width = width;
 		this.ctx = ctx;
 		this.game = new Game(width, height, 1);
 
@@ -21,6 +21,10 @@ class GameView {
 	// 	setInterval(this.moveAndDraw, 30);
 	// }
 
+	openingOff(){
+		this.game.opening = false
+	}
+
 	start() {
 		this.bindKeyHandlers();
 		this.lastTime = 0;
@@ -31,7 +35,7 @@ class GameView {
 	animate(time) {
 		const timeDelta = time - this.lastTime;
 
-		this.game.step(timeDelta);
+		if (!this.game.opening) this.game.step(timeDelta);
 		this.game.draw(this.ctx);
 		this.lastTime = time;
 
@@ -39,10 +43,7 @@ class GameView {
 		requestAnimationFrame(this.animate.bind(this));
 	};
 
-	clicked(){
-		
-		this.game.openingMessage = false;
-	}
+
 
 	bindKeyHandlers() {
 		
@@ -54,10 +55,10 @@ class GameView {
 			s: [0, dist],
 			d: [dist, 0] }
 
-			const that = this;
-
+		const that = this;
+		
 		Object.keys(MOVES).forEach((ele) => {
-			key(ele, () => { that.link.move(MOVES[ele]); })
+			key(ele, () => { that.link.move(MOVES[ele], this.game.opening); })
 		});
 
 		key("space", () => { that.link.attack(); });
