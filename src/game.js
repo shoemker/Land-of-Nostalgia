@@ -16,6 +16,8 @@ class Game {
 		this.messageCount = 0;
 		this.message = "Use a,w,s,d to move and space to attack, Kill all enemies! Only touch them with your sword.";
 
+		this.openingMessage = true;
+
 		this.add(new Snake({
 			pos: [100, 100],
 			vel: [1, 1],
@@ -72,6 +74,12 @@ class Game {
 		if (this.countToThirty > 0 && this.countToThirty%2 === 0 && this.collision) 
 			this.link.drawObject(ctx, true );
 		else this.link.drawObject(ctx, false);
+
+		if (this.openingMessage) {
+			ctx.fillStyle = "white";
+			ctx.textAlign = "center";
+			ctx.fillText("Welcome to Land of Nostalgia", this.dim_x / 2, 200);
+		}
 	}
 
 
@@ -80,7 +88,7 @@ class Game {
 		else if (this.messageCount > 0 || 
 							this.message.startsWith("Use a,w,s,d")) {
 
-			ctx.font = "18px sans-serif";
+			ctx.font = "14px PressStart2P";
 			ctx.fillStyle = "black";
 			ctx.textAlign = "center";
 			ctx.fillText(this.message, this.dim_x / 2, 18);

@@ -9,9 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	const ctx = canvasEl.getContext("2d");
 
-	g = new GameView(ctx,canvasEl.width, canvasEl.height);
 
-	g.start(ctx)
+
+	g = new GameView(ctx,canvasEl.width, canvasEl.height);
+	canvasEl.onclick = function () { g.clicked() };
+	g.start(ctx);
 
 });
 

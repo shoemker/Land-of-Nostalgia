@@ -39,7 +39,10 @@ class GameView {
 		requestAnimationFrame(this.animate.bind(this));
 	};
 
-
+	clicked(){
+		
+		this.game.openingMessage = false;
+	}
 
 	bindKeyHandlers() {
 		
