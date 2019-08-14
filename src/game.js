@@ -98,8 +98,11 @@ class Game {
 		ctx.fillStyle = "white";
 		ctx.fillRect(720, 40, 20, 80);
 		ctx.fillStyle = "green";
-		// let hp = this.link.hgititpoints();
+		let hp = this.link.hitpoints;
 
+		ctx.fillStyle = "green";
+		let offset = 60 - hp*10;
+		ctx.fillRect(725,50+offset,10,60-offset);
 	}
 
 
@@ -129,6 +132,8 @@ class Game {
 				this.countToThirty++;
 				this.collision = true;
 				this.message = "Ouch!";
+				
+				this.link.reduceHitPoints();
 				this.messageCount=1;
 			}
 		})

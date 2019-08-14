@@ -27,11 +27,8 @@ class Link extends MovingObject {
  
 	}
 
-	hitpoints() {
-		return this.hitpoints;
-	}
-
 	reduceHitPoints() {
+		
 		return this.hitpoints--;
 	}
 
