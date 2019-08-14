@@ -65,7 +65,7 @@ class Game {
 
 		this.drawBackgroundMap(ctx);
 		
-		this.hitpointsbar(ctx);
+		this.drawHitpointsBar(ctx);
 
 		this.enemies.forEach(ele => { ele.drawObject(ctx); });
 		
@@ -80,7 +80,7 @@ class Game {
 		else if (this.messageCount > 0 || 
 							this.message.startsWith("Use a,w,s,d")) {
 
-			ctx.font = "20px Comic Sans MS";
+			ctx.font = "18px sans-serif";
 			ctx.fillStyle = "black";
 			ctx.textAlign = "center";
 			ctx.fillText(this.message, this.dim_x / 2, 18);
@@ -94,15 +94,19 @@ class Game {
 		}
 	}
 
-	hitpointsbar(ctx) {
+	drawHitpointsBar(ctx) {
 		ctx.fillStyle = "white";
-		ctx.fillRect(720, 40, 20, 80);
+		ctx.fillRect(720, 40, 20, 65);
 		ctx.fillStyle = "green";
 		let hp = this.link.hitpoints;
 
-		ctx.fillStyle = "green";
+		if (hp > 2) ctx.fillStyle = "green";
+		else ctx.fillStyle = "red";
 		let offset = 60 - hp*10;
-		ctx.fillRect(725,50+offset,10,60-offset);
+		ctx.fillRect(725,45+offset,10,55-offset);
+		ctx.fillStyle = "white";
+		ctx.textAlign = "center";
+		ctx.fillText("HP", 730, 130);
 	}
 
 
