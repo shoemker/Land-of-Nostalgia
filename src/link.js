@@ -23,7 +23,16 @@ class Link extends MovingObject {
 		this.posHistory[1] = this.pos[1];
 		this.attackAnimationCount = 0;
 		this.maxCount = 4;
+		this.hitpoints = 6;
  
+	}
+
+	hitpoints() {
+		return this.hitpoints;
+	}
+
+	reduceHitPoints() {
+		return this.hitpoints--;
 	}
 
 	center() {
@@ -60,12 +69,6 @@ class Link extends MovingObject {
 	
 
 	drawObject(ctx, brighten) {
-		// this circle encircles Link
-		// ctx.beginPath();
-		// ctx.arc(this.pos[0]+15, this.pos[1]+15, 15, 0, 2 * Math.PI);
-		// ctx.stroke();
-		// ctx.fill();
-
 
 		if (brighten) ctx.filter = "brightness(170%)";
 		else ctx.filter = "brightness(100%)";

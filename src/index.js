@@ -15,3 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+	// document.addEventListener("onkeydown", function (event) {
+	// 		event.preventDefault()
+	// 	});

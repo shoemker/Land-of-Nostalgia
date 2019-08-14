@@ -59,6 +59,8 @@ class GameView {
 		});
 
 		key("space", () => { that.link.attack(); });
+
+
 	}
 
 }

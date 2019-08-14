@@ -37,10 +37,7 @@ class Snake extends Enemy {
 			this.height);
 	}
 
-	center() {
 
-		return [this.pos[0] + 15, this.pos[1] + 15];
-	}
 
 	loadImages() {
 		// drawImage(this.image, xOnSheet,yOnSheet,width, height,xcoord, ycoord, width, height)
