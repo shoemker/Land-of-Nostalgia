@@ -4,8 +4,8 @@ const MovingObject = require("./moving_object");
 class Link extends MovingObject {
 
 	constructor(ctx) {
-		super([600,90],[1,1],15,"")
-		this.pos = [600, 90];
+		super({pos:[600,90], radius:15})
+		// this.pos = [600, 90];
 		this.height = 30;
 		this.width = 30;
 		this.radius = 15
@@ -100,7 +100,7 @@ class Link extends MovingObject {
 
 
 	move(deltaPos, opening) {
-		if (this.attackAnimationCount === 0 && !opening) {
+		if (this.attackAnimationCount === 0 && !opening && this.hitpoints) {
 			this.moveOnce(deltaPos)
 		}
 	}
@@ -125,7 +125,7 @@ class Link extends MovingObject {
 
 	// temporarily sets image to attack image
 	attack() {
-		if (this.attackAnimationCount === 0 ) {
+		if (this.attackAnimationCount === 0 && this.hitpoints > 0) {
 			this.directionHistory = this.direction;
 			this.posHistory[0] = this.pos[0];
 			this.posHistory[1] = this.pos[1];

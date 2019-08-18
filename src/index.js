@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	canvasEl.height =750;
 
-	const ctx = canvasEl.getContext("2d");
+	const ctxMain = canvasEl.getContext("2d");
 
-	g = new GameView(ctx,canvasEl.width, canvasEl.height);
+	g = new GameView(ctxMain,canvasEl.width, canvasEl.height);
 
-	g.start(ctx)
+	g.start(ctxMain)
 
 	canvasEl.onclick = function () {g.openingOff(); }
 

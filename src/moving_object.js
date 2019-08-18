@@ -6,6 +6,7 @@ class MovingObject {
 		this.vel = options.vel;
 		this.radius = options.radius;
 		this.color = options.color;
+		this.xOffset = 0;
 	}
 
 	center() {
@@ -36,8 +37,8 @@ class MovingObject {
 	checkBounds(x,y) {
 		// debugger
 		if (y < 70 || y > 700) return false
-		else if (x > 710) return false;
-		else if (x<70 && !(y>404 && y<468)) return false
+		else if (x > 710 + this.xOffset) return false;
+		else if (x < 70 + this.xOffset && !(y>404 && y<468)) return false
 
 		return true;
 	}
