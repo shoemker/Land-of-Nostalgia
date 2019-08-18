@@ -11,8 +11,7 @@ class Game {
 	
 		this.enemies = [];
 		this.rupees = [];
-		this.xOffset =0;
-		this.dim_x = dim_x + this.xOffset;
+		this.dim_x = dim_x;
 		this.dim_y = dim_y;
 		this.link;
 		this.map = map;
@@ -27,14 +26,14 @@ class Game {
 		this.rupeeImg = this.loadRupee();
 
 		this.add(new Snake({
-			pos: [100 + this.xOffset, 100],
+			pos: [100, 100],
 			vel: [1, 1],
 			radius: 15, 
 			img: snakeImg
 		}))
 
 		this.add(new Snake({
-			pos: [100 + this.xOffset, 400],
+			pos: [100, 400],
 
 			vel: [1, 1],
 			radius: 15,
@@ -42,7 +41,7 @@ class Game {
 		}))
 		
 		this.add(new Snake({
-			pos: [650 + this.xOffset, 600],
+			pos: [650, 600],
 			vel: [1, 1],
 			radius: 15,
 			img: snakeImg
@@ -136,7 +135,7 @@ class Game {
 	drawBackgroundMap(ctx, map = 1) {
 		if (map === 1) {
 	
-			let b = new Background1(ctx, this.background1, this.dim_x - this.xOffset, this.dim_y);
+			let b = new Background1(ctx, this.background1, this.dim_x, this.dim_y);
 		}
 	}
 
@@ -144,24 +143,24 @@ class Game {
 		ctx.fillStyle = "white";
 		ctx.textAlign = "center";
 		ctx.font = "20px HalfBoldPixel";
-		ctx.fillText("Rupees", 50 + this.xOffset,50);
-		ctx.fillText(this.link.rupees, 50 + this.xOffset, 70);
+		ctx.fillText("Rupees", 50,50);
+		ctx.fillText(this.link.rupees, 50, 70);
 	}
 
 	drawHitpointsBar(ctx) {
 		ctx.fillStyle = "white";
-		ctx.fillRect(720 + this.xOffset, 40, 20, 70);
+		ctx.fillRect(720, 40, 20, 70);
 		ctx.fillStyle = "green";
 		let hp = this.link.hitpoints;
 
 		if (hp > 2) ctx.fillStyle = "green";
 		else ctx.fillStyle = "red";
 		let offset = 60 - hp*10;
-		ctx.fillRect(725 + this.xOffset,45+offset,10,60-offset);
+		ctx.fillRect(725,45,10,60);
 		ctx.fillStyle = "white";
 		ctx.textAlign = "center";
 		ctx.font = "15px HalfBoldPixel";
-		ctx.fillText("HP", 731+ this.xOffset, 125);
+		ctx.fillText("HP", 730, 125);
 	}
 
 
@@ -194,7 +193,6 @@ class Game {
 				this.message = "Ouch!";
 				
 				this.link.reduceHitPoints();
-				console.log(this.link.hitpoints);
 		
 				this.messageCount=1;
 			}
