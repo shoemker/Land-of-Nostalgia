@@ -18,7 +18,7 @@ class Game {
 		this.map = map;
 		this.countToThirty = 0;
 		this.messageCount = 0;
-		this.message = "Use a,w,s,d to move and space to attack, Kill all enemies!";
+		this.message = "Good Luck!";
 
 		this.opening = true;
 
@@ -123,11 +123,11 @@ class Game {
 	drawMessage(ctx){
 		if (this.messageCount === 30) this.messageCount = 0;
 		else if (this.messageCount > 0 || 
-							this.message.startsWith("Use a,w,s,d")) {
+							this.message.startsWith("Good Luck!")) {
 
 			ctx.font = "20px HalfBoldPixel";
 			
-			ctx.fillStyle = "black";
+			ctx.fillStyle = "white";
 			ctx.fillText(this.message, this.dim_x / 2, 18);
 			this.messageCount++;
 		}
