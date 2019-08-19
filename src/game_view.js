@@ -36,6 +36,8 @@ class GameView {
 		const timeDelta = time - this.lastTime;
 
 		if (!this.game.opening) this.game.step(timeDelta);
+
+		// if (this.link.pos[0])
 		this.game.draw(this.ctx);
 		this.lastTime = time;
 

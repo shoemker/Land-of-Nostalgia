@@ -5,7 +5,6 @@ class Link extends MovingObject {
 
 	constructor(ctx) {
 		super({pos:[600,90], radius:15})
-		// this.pos = [600, 90];
 		this.height = 30;
 		this.width = 30;
 		this.radius = 15
@@ -100,7 +99,7 @@ class Link extends MovingObject {
 
 
 	move(deltaPos, opening) {
-		if (this.attackAnimationCount === 0 && !opening && this.hitpoints) {
+		if (this.attackAnimationCount === 0 && !opening && this.hitpoints > 0) {
 			this.moveOnce(deltaPos)
 		}
 	}
