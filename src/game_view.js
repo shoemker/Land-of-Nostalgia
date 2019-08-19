@@ -37,7 +37,12 @@ class GameView {
 
 		if (!this.game.opening) this.game.step(timeDelta);
 
-		// if (this.link.pos[0])
+		if (this.link.pos[0] < 50) {
+			this.game.map = 2;
+			this.game.enemies = [];
+			this.game.addEnemies();
+			this.link.pos = [700, 450];
+		}
 		this.game.draw(this.ctx);
 		this.lastTime = time;
 
@@ -63,7 +68,12 @@ class GameView {
 			key(ele, () => { that.link.move(MOVES[ele], this.game.opening); })
 		});
 
-		key("space", () => { that.link.attack(); });
+		key("space", () => { 
+			that.link.attack(); 
+			if (that.link.unlock) {
+				that.game.launchFireball();
+			}
+		});
 
 
 	}

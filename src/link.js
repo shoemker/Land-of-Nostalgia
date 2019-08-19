@@ -9,6 +9,7 @@ class Link extends MovingObject {
 		this.width = 30;
 		this.radius = 15
 		this.ctx = ctx;
+		this.unlock = true;
 
 		this.imageArray = [];
 		this.loadImages();
@@ -22,7 +23,7 @@ class Link extends MovingObject {
 		this.posHistory[1] = this.pos[1];
 		this.attackAnimationCount = 0;
 		this.maxCount = 4;
-		this.hitpoints = 6;
+		this.hitpoints = 8;
 		this.rupees = 0;
  
 	}

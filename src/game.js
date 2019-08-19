@@ -4,6 +4,7 @@ const Snake = require("./snake");
 const Skeleton = require("./skeleton");
 const Rupee = require("./rupee");
 const Link = require("./link");
+const Fireball = require("./fireball");
 const Background1 = require("./background1")
 const Background2 = require("./background2")
 
@@ -31,8 +32,12 @@ class Game {
 		this.loadBackground1();
 		this.loadBackground2();
 		this.loadPlants();
+		this.loadFireball();
+	
+
 
 		this.addEnemies();
+		this.fireball = null;
 		
 	}
 
@@ -101,13 +106,47 @@ class Game {
 		}
 
 	}
+
+
+	draw(ctx) {
+		
+		ctx.clearRect(0,0,this.dim_x, this.dim_y);
+		
+		this.drawMessage(ctx);
+
+		this.drawBackgroundMap(ctx, this.map);
+
+		this.drawRupeesCount(ctx);
+		
+		this.drawHitpointsBar(ctx);
+
+		// ctx.drawImage(this.fireball, 150, 0, 600, 600, 100, 300, 15, 15);
+
+
+		if (this.link.hitpoints <= 0) {
+			this.drawClosing(ctx);
+			this.enemies = [];
+		} 
 	
+		this.enemies.forEach(ele => { ele.drawObject(ctx); });
+		this.rupees.forEach(ele => { ele.drawObject(ctx); });
+		if (this.fireball) this.fireball.drawObject(ctx);
+	
+
+		if (this.countToThirty > 0 && this.countToThirty%2 === 0 && this.collision) 
+			this.link.drawObject(ctx, true );
+		else this.link.drawObject(ctx, false);
+
+		if (this.opening) this.drawOpening(ctx);
+	}
+
+
 	drawOpening(ctx) {
-			
+
 		ctx.fillStyle = "white";
 		ctx.textAlign = "center";
 		ctx.font = "35px HalfBoldPixel";
-		
+
 		ctx.fillText("Welcome to Land of Nostalgia!", this.dim_x / 2, 200);
 		ctx.fillText("Click to Start", this.dim_x / 2, 250);
 	}
@@ -122,38 +161,6 @@ class Game {
 		ctx.fillText("Game Over!", this.dim_x / 2, 250);
 
 	}
-
-	draw(ctx) {
-		
-		ctx.clearRect(0,0,this.dim_x, this.dim_y);
-		
-		this.drawMessage(ctx);
-
-		this.drawBackgroundMap(ctx, this.map);
-
-		this.drawRupeesCount(ctx);
-		
-		this.drawHitpointsBar(ctx);
-
-		// ctx.drawImage(this.enemiesImg, 420, 120, 15, 15, 100, 300, 30, 30);
-
-
-		if (this.link.hitpoints <= 0) {
-			this.drawClosing(ctx);
-			this.enemies = [];
-		} 
-	
-		this.enemies.forEach(ele => { ele.drawObject(ctx); });
-		this.rupees.forEach(ele => { ele.drawObject(ctx); });
-	
-
-		if (this.countToThirty > 0 && this.countToThirty%2 === 0 && this.collision) 
-			this.link.drawObject(ctx, true );
-		else this.link.drawObject(ctx, false);
-
-		if (this.opening) this.drawOpening(ctx);
-	}
-
 
 	drawMessage(ctx){
 		if (this.messageCount === 30) this.messageCount = 0;
@@ -186,18 +193,17 @@ class Game {
 
 	drawHitpointsBar(ctx) {
 		ctx.fillStyle = "white";
-		ctx.fillRect(720, 40, 20, 70);
-		ctx.fillStyle = "green";
+		ctx.fillRect(720, 40, 20, 90);
 		let hp = this.link.hitpoints;
 
 		if (hp > 2) ctx.fillStyle = "green";
 		else ctx.fillStyle = "red";
-		let offset = 60 - hp*10;
-		ctx.fillRect(725,45,10,60);
+		let offset = 80 - hp*10;
+		ctx.fillRect(725, 45 + offset, 10, 80 - offset);
 		ctx.fillStyle = "white";
 		ctx.textAlign = "center";
 		ctx.font = "15px HalfBoldPixel";
-		ctx.fillText("HP", 730, 125);
+		ctx.fillText("HP", 731, 145);
 	}
 
 
@@ -238,9 +244,15 @@ class Game {
 		this.rupees.forEach((rupee,i) => { 
 			let distance = Util.distance(this.link.center(),rupee.center());
 			if (distance < 30 ) {
-				this.message = "You found a rupee!"
+			
 				this.rupees.splice(i, 1)
 				this.link.rupees++;
+				if (this.link.rupees === 3) {
+					this.message = "You can now launch fireballs when you attack!"
+					this.link.unlock = true;
+				}
+				else this.message = "You found a rupee!"
+
 				this.messageCount = 1;
 			}
 		});
@@ -248,8 +260,9 @@ class Game {
 
 	checkHit() {
 		const tip = this.link.swordTipPos();
-		if (tip !== null ) {
-			this.enemies.forEach((enemy,i) => { 
+
+		this.enemies.forEach((enemy,i) => { 
+			if (tip !== null) {
 				const distance = Util.distance(tip, enemy.center());
 
 				if (distance < enemy.radius) {
@@ -261,15 +274,50 @@ class Game {
 						this.enemies.splice(i,1)
 						this.message = "Enemy Killed";
 						this.add(new Rupee(enemy.pos, this.rupeeImg));
+				
 
 					}
 				} 
-			})
-	 	}
+			}
+
+			
+		})
+		
+	}
+
+	launchFireball() {
+		let position = this.link.swordTipPos();
+		let direction = this.link.direction;
+		let velocity;
+		
+		switch (direction) {
+			case 8:
+				velocity = [0, -1];
+				break;
+			case 9:
+				velocity = [-1, 0];
+				break;
+			case 10:
+				velocity = [0, 1];
+				break;
+			case 11:
+				velocity = [1, 0];
+				break;				
+			default:
+				velocity = [0, 0];
+		}
+
+		this.fireball = new Fireball({
+			pos: [position[0] - 7, position[1] - 7],
+			vel: velocity,
+			radius: 15,
+			img: this.fireballImg
+		})
 	}
 
 	moveObjects(timeDelta) {
 		this.enemies.forEach(enemy => { enemy.move(timeDelta); });
+		if (this.fireball) this.fireball.move(4);
 	}
 
 
@@ -289,6 +337,12 @@ class Game {
 		this.plants = new Image();
 		this.plants.onload = () => { return true; }
 		this.plants.src = './images/plant_repack.png';
+	}
+
+	loadFireball() {
+		this.fireballImg = new Image();
+		this.fireballImg.onload = () => { return true; }
+		this.fireballImg.src = './images/fireball.png';
 	}
 
 	loadEnemiesImg() {

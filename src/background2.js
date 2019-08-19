@@ -25,7 +25,7 @@ class Background2 {
 
 		//puddle
 		this.ctx.drawImage(this.img, 300, 355, 80, 80, 300, 400, 64, 64);
-		this.ctx.drawImage(this.img, 300, 355, 80, 80, 600, 450, 64, 64);
+		this.ctx.drawImage(this.img, 300, 355, 80, 80, 600, 150, 64, 64);
 
 		//cactus
 		this.ctx.drawImage(this.imgPlants, 350, 190, 80, 100, 50, 100, 64, 64);		
