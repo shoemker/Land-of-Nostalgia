@@ -9,7 +9,7 @@ class Link extends MovingObject {
 		this.width = 30;
 		this.radius = 15
 		this.ctx = ctx;
-		this.unlock = true;
+		this.unlockFireball = false;
 
 		this.imageArray = [];
 		this.loadImages();
