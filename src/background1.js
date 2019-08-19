@@ -13,22 +13,22 @@ class Background1 {
 	draw () {
 		this.ctx.fillStyle = "#8DC435";
 		
-		this.ctx.fillRect(0, 20, this.dim_x, this.dim_y);
+		this.ctx.fillRect(0, 30, this.dim_x, this.dim_y);
 
 		for(let i = 0; i < 11; i++) {
 			//top
-			this.ctx.drawImage(this.img, 128, 0, 64, 64, i * 64, 20, 64, 64);
+			this.ctx.drawImage(this.img, 128, 0, 64, 64, i * 64, 30, 64, 64);
 
 			//trail
-			this.ctx.drawImage(this.img, 64, 0, 64, 64, i * 64, 404, 64, 64);
+			this.ctx.drawImage(this.img, 64, 0, 64, 64, i * 64, 414, 64, 64);
 
 			// drawImage(this.image, xOnSheet,yOnSheet,width, height,xcoord, ycoord, width, height)
 
 
 			// //bottom
 			if (i !== 0 && i != 15) {
-				this.ctx.drawImage(this.img, 192, 0, 64, 64, i * 64, 660, 64, 64);
-				this.ctx.drawImage(this.img, 128, 0, 64, 64, i * 64, 724, 64, 64);
+				this.ctx.drawImage(this.img, 192, 0, 64, 64, i * 64, 670, 64, 64);
+				this.ctx.drawImage(this.img, 128, 0, 64, 64, i * 64, 734, 64, 64);
 			}
 		}
 
@@ -46,14 +46,14 @@ class Background1 {
 		for (let i = 0; i < 6; i++) {
 			// left side
 
-			if (i !== 2) this.ctx.drawImage(this.img, 192, 0, 64, 64, 0, 84 + i * 2 * 64, 64, 64);
-			if (i !== 3) this.ctx.drawImage(this.img, 128, 0, 64, 64, 0, 20 + i * 2 * 64, 64, 64);
+			if (i !== 2) this.ctx.drawImage(this.img, 192, 0, 64, 64, 0, 94 + i * 2 * 64, 64, 64);
+			if (i !== 3) this.ctx.drawImage(this.img, 128, 0, 64, 64, 0, 30 + i * 2 * 64, 64, 64);
 
 
 			//right side
 
-			this.ctx.drawImage(this.img, 192, 0, 64, 64, 700, 84 + i * 2 * 64, 64, 64);
-			this.ctx.drawImage(this.img, 128, 0, 64, 64, 700, 20 + i * 2 * 64, 64, 64);
+			this.ctx.drawImage(this.img, 192, 0, 64, 64, 700, 94 + i * 2 * 64, 64, 64);
+			this.ctx.drawImage(this.img, 128, 0, 64, 64, 700, 30 + i * 2 * 64, 64, 64);
 
 
 		}

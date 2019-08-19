@@ -167,10 +167,10 @@ class Game {
 		else if (this.messageCount > 0 || 
 							this.message.startsWith("Good Luck!")) {
 
-			ctx.font = "20px HalfBoldPixel";
+			ctx.font = "30px HalfBoldPixel";
 			
 			ctx.fillStyle = "white";
-			ctx.fillText(this.message, this.dim_x / 2, 18);
+			ctx.fillText(this.message, this.dim_x / 2, 23);
 			this.messageCount++;
 		}
 	}
@@ -248,7 +248,7 @@ class Game {
 				this.rupees.splice(i, 1)
 				this.link.rupees++;
 				if (this.link.rupees === 3) {
-					this.message = "You can now launch fireballs when you attack!"
+					this.message = "Fireballs when you attack!"
 					this.link.unlock = true;
 				}
 				else this.message = "You found a rupee!"
