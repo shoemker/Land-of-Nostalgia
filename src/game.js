@@ -43,7 +43,7 @@ class Game {
 
 	addEnemies() {
 		
-		if (this.map === 1) {
+		if (this.map === 2) {
 			this.add(new Snake({
 				pos: [100, 100],
 				vel: [1, 1],
@@ -65,7 +65,7 @@ class Game {
 				radius: 15,
 				img: this.enemiesImg
 			}))
-		} else if (this.map === 2) {
+		} else if (this.map === 1) {
 		
 			this.add(new Skeleton({
 				pos: [100, 100],
