@@ -56,7 +56,7 @@ class Game {
 
 				vel: [1, 1],
 				radius: 15,
-				img: this.enemiesImg
+				img:  this.enemiesImg
 			}))
 
 			this.add(new Snake({
