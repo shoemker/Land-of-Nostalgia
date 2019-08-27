@@ -21,9 +21,9 @@ class Game {
 		this.countToThirty = 0;
 		this.messageCount = 0;
 		this.message = "Good Luck!";
-
+		
 		this.opening = true;
-
+		this.win = false;
 
 		this.rupeeImg = this.loadRupee();
 
@@ -33,12 +33,15 @@ class Game {
 		this.loadBackground2();
 		this.loadPlants();
 		this.loadFireball();
-	
+		this.loadChest();
 
 
 		this.addEnemies();
 		this.fireball = null;
-		
+
+		this.b1 = new Background1(this.dim_x, this.dim_y, this.background1);
+		this.b2 = new Background2(this.dim_x, this.dim_y, this.background2, this.plants, this.chestImg);
+
 	}
 
 	addEnemies() {
@@ -48,14 +51,15 @@ class Game {
 				pos: [100, 100],
 				vel: [1, 1],
 				radius: 15,
+				map: this.map,
 				img: this.enemiesImg
 			}))
 
 			this.add(new Snake({
 				pos: [100, 400],
-
 				vel: [1, 1],
 				radius: 15,
+				map: this.map,
 				img:  this.enemiesImg
 			}))
 
@@ -63,6 +67,7 @@ class Game {
 				pos: [650, 600],
 				vel: [1, 1],
 				radius: 15,
+				map: this.map,
 				img: this.enemiesImg
 			}))
 		} else if (this.map === 1) {
@@ -71,14 +76,15 @@ class Game {
 				pos: [100, 100],
 				vel: [1, 1],
 				radius: 15,
+				map: this.map,
 				img: this.enemiesImg
 			}))
 
 			this.add(new Skeleton({
 				pos: [100, 400],
-
 				vel: [1, 1],
 				radius: 15,
+				map: this.map,
 				img: this.enemiesImg
 			}))
 
@@ -86,6 +92,7 @@ class Game {
 				pos: [650, 600],
 				vel: [1, 1],
 				radius: 15,
+				map: this.map,
 				img: this.enemiesImg
 			}))
 		}
@@ -120,13 +127,16 @@ class Game {
 		
 		this.drawHitpointsBar(ctx);
 
-		// ctx.drawImage(this.fireball, 150, 0, 600, 600, 100, 300, 15, 15);
-
 
 		if (this.link.hitpoints <= 0) {
-			this.drawClosing(ctx);
+			// this.link.gameOver = true;
+			this.drawLose(ctx);
 			this.enemies = [];
-		} 
+		} else if (this.win) {
+			this.drawWin(ctx);
+		}
+
+		
 	
 		this.enemies.forEach(ele => { ele.drawObject(ctx); });
 		this.rupees.forEach(ele => { ele.drawObject(ctx); });
@@ -151,7 +161,7 @@ class Game {
 		ctx.fillText("Click to Start", this.dim_x / 2, 250);
 	}
 
-	drawClosing(ctx) {
+	drawLose(ctx) {
 
 		ctx.fillStyle = "white";
 		ctx.textAlign = "center";
@@ -159,6 +169,15 @@ class Game {
 
 		ctx.fillText("Sorry, Link has no more hitpoints.", this.dim_x / 2, 200);
 		ctx.fillText("Game Over!", this.dim_x / 2, 250);
+
+	}
+
+	drawWin(ctx) {
+		ctx.fillStyle = "white";
+		ctx.textAlign = "center";
+		ctx.font = "35px HalfBoldPixel";
+
+		ctx.fillText("Congrats! You Win!", this.dim_x / 2, 200);
 
 	}
 
@@ -177,9 +196,9 @@ class Game {
 
 	drawBackgroundMap(ctx, map) {
 		if (map === 1) {
-			let b = new Background1(ctx, this.dim_x, this.dim_y, this.background1);
+			this.b1.draw(ctx);
 		} else if (map === 2) {
-			let b = new Background2(ctx, this.dim_x, this.dim_y, this.background2, this.plants);
+			this.b2.draw(ctx);
 		}
 	}
 
@@ -220,7 +239,27 @@ class Game {
 			this.checkHit();
 		}
 
+		this.checkForWin();
+
+
 		this.moveObjects(timeDelta);
+	}
+
+	checkForWin(){
+		if (this.map === 2 && this.enemies.length === 0) {
+			this.message = "Strike chest for the the win!"
+			const tip = this.link.swordTipPos();
+			if(tip != null) console.log(tip);
+			if (tip != null && 
+				tip[0] >= 10 && tip[0] <= 60 &&
+				tip[1] >= 90 && tip[1] <= 133) {
+
+				this.b2.chestImgX = 428;
+				this.link.gameOver = true;
+				this.win = true;
+				
+			}
+		}
 	}
 
 	checkCollisions() {
@@ -260,7 +299,6 @@ class Game {
 
 	checkHit() {
 		const tip = this.link.swordTipPos();
-
 		this.enemies.forEach((enemy,i) => { 
 			if (tip !== null) {
 				const distance = Util.distance(tip, enemy.center());
@@ -368,6 +406,12 @@ class Game {
 		rup.onload = () => { return true; }
 		rup.src = './images/BotW_Green_Rupee_Icon.png';
 		return rup;
+	}
+
+	loadChest() {
+		this.chestImg = new Image();
+		this.chestImg.onload = () => { return true; }
+		this.chestImg.src = './images/chest.png';
 	}
 	
 }

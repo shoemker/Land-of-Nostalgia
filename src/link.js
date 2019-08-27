@@ -3,8 +3,8 @@ const MovingObject = require("./moving_object");
 
 class Link extends MovingObject {
 
-	constructor(ctx) {
-		super({pos:[600,90], radius:15})
+	constructor(ctx, map) {
+		super({pos:[600,90], radius:15, map:map})
 		this.height = 30;
 		this.width = 30;
 		this.radius = 15
@@ -25,6 +25,7 @@ class Link extends MovingObject {
 		this.maxCount = 4;
 		this.hitpoints = 8;
 		this.rupees = 0;
+		this.gameOver = false;
  
 	}
 
@@ -72,11 +73,20 @@ class Link extends MovingObject {
 		else ctx.filter = "brightness(100%)";
 
 		// draws Link
-		ctx.drawImage(this.imageArray[this.direction + this.idx], 
+		if (this.gameOver) {
+			ctx.drawImage(this.linkOver,
+										this.pos[0]-20,
+										this.pos[1]-30,
+										this.width+45,
+										this.height+30);
+		} else {
+
+			ctx.drawImage(this.imageArray[this.direction + this.idx], 
 									this.pos[0], 
 									this.pos[1], 
 									this.width, 
 									this.height);
+		}
 
 		// lets the attack animation stay for several cycles
 		// and resets image at the end
@@ -100,7 +110,7 @@ class Link extends MovingObject {
 
 
 	move(deltaPos, opening) {
-		if (this.attackAnimationCount === 0 && !opening && this.hitpoints > 0) {
+		if (this.attackAnimationCount === 0 && !opening && this.hitpoints > 0 && !this.gameOver) {
 			this.moveOnce(deltaPos)
 		}
 	}
@@ -221,6 +231,10 @@ class Link extends MovingObject {
 		this.lra.onload = () => { return true; }
 		this.lra.src = './images/link/lra.png';
 		this.imageArray.push(this.lra);
+
+		this.linkOver = new Image();
+		this.linkOver.onload = () => { return true; }
+		this.linkOver.src = './images/link/link_aloft.png';
 	}
 	
 }

@@ -9,9 +9,10 @@ class GameView {
 	constructor(ctx, width, height){
 		this.width = width;
 		this.ctx = ctx;
-		this.game = new Game(width, height, 1);
+		let map = 1;
+		this.game = new Game(width, height, map);
 
-		this.link = this.game.add(new Link(this.ctx));
+		this.link = this.game.add(new Link(this.ctx,map));
 
 	}
 
@@ -37,8 +38,9 @@ class GameView {
 
 		if (!this.game.opening) this.game.step(timeDelta);
 
-		if (this.link.pos[0] < 50) {
+		if (this.game.map ===1 && this.link.pos[0] < 50) {
 			this.game.map = 2;
+			this.link.map = 2;
 			this.game.enemies = [];
 			this.game.addEnemies();
 			this.link.pos = [700, 450];
