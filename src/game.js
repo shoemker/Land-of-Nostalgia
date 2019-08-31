@@ -16,7 +16,6 @@ class Game {
 		this.rupees = [];
 		this.dim_x = dim_x;
 		this.dim_y = dim_y;
-		this.link;
 		this.map = map;
 		this.countToThirty = 0;
 		this.messageCount = 0;
@@ -36,11 +35,12 @@ class Game {
 		this.loadChest();
 
 
-		this.addEnemies();
 		this.fireball = null;
 
 		this.b1 = new Background1(this.dim_x, this.dim_y, this.background1);
 		this.b2 = new Background2(this.dim_x, this.dim_y, this.background2, this.plants, this.chestImg);
+
+		this.addEnemies();
 
 	}
 
@@ -51,7 +51,7 @@ class Game {
 				pos: [100, 100],
 				vel: [1, 1],
 				radius: 15,
-				map: this.map,
+				map: this.b2,
 				img: this.enemiesImg
 			}))
 
@@ -59,7 +59,7 @@ class Game {
 				pos: [100, 400],
 				vel: [1, 1],
 				radius: 15,
-				map: this.map,
+				map: this.b2,
 				img:  this.enemiesImg
 			}))
 
@@ -67,7 +67,7 @@ class Game {
 				pos: [650, 600],
 				vel: [1, 1],
 				radius: 15,
-				map: this.map,
+				map: this.b2,
 				img: this.enemiesImg
 			}))
 		} else if (this.map === 1) {
@@ -76,7 +76,7 @@ class Game {
 				pos: [100, 100],
 				vel: [1, 1],
 				radius: 15,
-				map: this.map,
+				map: this.b1,
 				img: this.enemiesImg
 			}))
 
@@ -84,7 +84,7 @@ class Game {
 				pos: [100, 400],
 				vel: [1, 1],
 				radius: 15,
-				map: this.map,
+				map: this.b1,
 				img: this.enemiesImg
 			}))
 
@@ -92,7 +92,7 @@ class Game {
 				pos: [650, 600],
 				vel: [1, 1],
 				radius: 15,
-				map: this.map,
+				map: this.b1,
 				img: this.enemiesImg
 			}))
 		}
@@ -105,6 +105,7 @@ class Game {
 		}
 		else if (object instanceof Link){
 			this.link = object;
+			this.link.map = this.b1;
 			return this.link;
 		}
 		else if (object instanceof Rupee){

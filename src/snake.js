@@ -18,9 +18,6 @@ class Snake extends Enemy {
 
 	drawObject(ctx) {
 
-		// if (brighten) ctx.filter = "brightness(170%)";
-		// else ctx.filter = "brightness(100%)";
-
 		let x;
 		let y;
 		if (this.deltaX >= 0) {
@@ -37,8 +34,6 @@ class Snake extends Enemy {
 			this.width,
 			this.height);
 	
-
-
 	}
 }
 

@@ -24,7 +24,8 @@ class Enemy extends MovingObject{
 	
 		const newX = this.pos[0] + this.deltaX
 		const newY = this.pos[1] + this.deltaY
-		if (this.checkBounds(newX, newY)) {
+
+		if (this.map.checkBounds(newX, newY)) {
 			this.pos[0] = newX;
 			this.pos[1] = newY;
 		} else this.directionCount = 10;

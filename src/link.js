@@ -3,8 +3,8 @@ const MovingObject = require("./moving_object");
 
 class Link extends MovingObject {
 
-	constructor(ctx, map) {
-		super({pos:[600,90], radius:15, map:map})
+	constructor(ctx) {
+		super({pos:[600,90], radius:15})
 		this.height = 30;
 		this.width = 30;
 		this.radius = 15
@@ -26,6 +26,7 @@ class Link extends MovingObject {
 		this.hitpoints = 8;
 		this.rupees = 0;
 		this.gameOver = false;
+		this.map;
  
 	}
 
@@ -54,7 +55,6 @@ class Link extends MovingObject {
 			} else {
 				return [center[0] + this.radius + 1.6 * this.radius, center[1] + 2];
 			}
-
 		}
 		else return null;
 	}
@@ -116,7 +116,7 @@ class Link extends MovingObject {
 
 	moveOnce(deltaPos) {
 	
-		if (this.checkBounds(this.center()[0] + deltaPos[0], this.center()[1] + deltaPos[1])) {
+		if (this.map.checkBounds(this.center()[0] + deltaPos[0], this.center()[1] + deltaPos[1])) {
 
 			this.direction = 0;
 			this.pos[0] += deltaPos[0];
