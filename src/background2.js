@@ -8,7 +8,6 @@ class Background2 {
 		this.dim_y = dim_y;
 
 		this.chestImgX = 25;
-	
 	}
 
 
@@ -37,6 +36,14 @@ class Background2 {
 		// chest
 		ctx.drawImage(this.chestImg, this.chestImgX, 25, 350, 250, 10, 90, 50, 43);
 	}
+
+	checkBounds(x, y) {
+		if (y < 90 || y > 700) return false
+		else if (x > 710 || x < 30) return false;
+		else if (x < 70 && y < 130) return false;
+		else return true;
+	}
+	
 }
 
 module.exports = Background2

@@ -36,21 +36,21 @@ class MovingObject {
 	}
 
 	//checks to see if the center is out of bounds
-	checkBounds(x,y) {
-		if (this.map === 1) {
-			if (y < 70 || y > 700) return false
-			else if (x > 710 ) return false;
-			else if (x < 70  && !(y>404 && y<468)) return false
-		} 
-		else if (this.map === 2) {
-			if (y < 90 || y > 700) return false
-			else if (x > 710 || x < 30) return false;
-			else if (x < 70 && y < 130) return false;
+	// checkBounds(x,y) {
+	// 	if (this.map === 1) {
+	// 		if (y < 70 || y > 700) return false
+	// 		else if (x > 710 ) return false;
+	// 		else if (x < 70  && !(y>404 && y<468)) return false
+	// 	} 
+	// 	else if (this.map === 2) {
+	// 		if (y < 90 || y > 700) return false
+	// 		else if (x > 710 || x < 30) return false;
+	// 		else if (x < 70 && y < 130) return false;
 
-		}
+	// 	}
 
-		return true;
-	}
+	// 	return true;
+	// }
 }
 
 module.exports = MovingObject;

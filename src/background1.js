@@ -55,6 +55,13 @@ class Background1 {
 
 		}
 	}
+
+	checkBounds(x, y) {
+		if (y < 70 || y > 700) return false;
+		else if (x > 710) return false;
+		else if (x < 70 && !(y > 404 && y < 468)) return false;
+		else return true;
+	}
 	
 }
 
