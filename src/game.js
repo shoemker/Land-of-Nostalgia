@@ -28,17 +28,13 @@ class Game {
 
 		// load images
 		this.loadEnemiesImg();
-		this.loadBackground1();
-		this.loadBackground2();
-		this.loadPlants();
 		this.loadFireball();
-		this.loadChest();
 
 
 		this.fireball = null;
 
-		this.b1 = new Background1(this.dim_x, this.dim_y, this.background1);
-		this.b2 = new Background2(this.dim_x, this.dim_y, this.background2, this.plants, this.chestImg);
+		this.b1 = new Background1(this.dim_x, this.dim_y);
+		this.b2 = new Background2(this.dim_x, this.dim_y);
 
 		this.addEnemies();
 
@@ -370,25 +366,6 @@ class Game {
 		if (this.fireball) this.fireball.move(4);
 	}
 
-
-	loadBackground1() {
-		this.background1 = new Image();
-		this.background1.onload = () => { return true; }
-		this.background1.src = './images/tiles.png';
-	}
-
-	loadBackground2() {
-		this.background2 = new Image();
-		this.background2.onload = () => { return true; }
-		this.background2.src = './images/terrain_atlas.png';
-	}
-
-	loadPlants() {
-		this.plants = new Image();
-		this.plants.onload = () => { return true; }
-		this.plants.src = './images/plant_repack.png';
-	}
-
 	loadFireball() {
 		this.fireballImg = new Image();
 		this.fireballImg.onload = () => { return true; }
@@ -409,11 +386,6 @@ class Game {
 		return rup;
 	}
 
-	loadChest() {
-		this.chestImg = new Image();
-		this.chestImg.onload = () => { return true; }
-		this.chestImg.src = './images/chest.png';
-	}
 	
 }
 
